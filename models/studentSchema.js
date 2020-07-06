@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema ({
-    name_first: {
+    firstName: {
         type: String,
         required: true,
         unique: false
     },
-    name_last: {
+    lastName: {
         type: String,
         required: true,
         unique: false
