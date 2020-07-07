@@ -32,7 +32,7 @@ const teacherSchema = new Schema ({
     },
     students: [{
         type: Object,
-        default: null,
+        default: {},
         unique: false
     }]
 });
