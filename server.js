@@ -61,6 +61,7 @@ const Teacher = require('./models/teacherSchema.js');
 ///////////////////////////////////////
 
 const teachersController = require('./controllers/teachersController.js');
+const studentsController = require('./controllers/studentsController.js');
 
 ///////////////////////////////////////
 // MIDDLEWARE
@@ -71,6 +72,7 @@ app.use(express.json());
 app.use(express.static('build'));
 
 app.use('/teachers', teachersController);
+app.use('/students', studentsController);
 
 ///////////////////////////////////////
 // ROUTES
@@ -84,16 +86,6 @@ app.get('/lessons', (req, res) => {
     Lesson.find((error, lessons) => {
         if (!error) {
             res.json(lessons);
-        } else {
-            console.log(error);
-        }
-    });
-});
-
-app.get('/students', (req, res) => {
-    Student.find((error, students) => {
-        if (!error) {
-            res.json(students);
         } else {
             console.log(error);
         }

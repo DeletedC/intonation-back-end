@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema ({
+    userName: {
+        type: String,
+        required: true,
+        unique: true
+    },
     firstName: {
         type: String,
         required: true,
@@ -34,7 +39,7 @@ const studentSchema = new Schema ({
     teacher: [{
         type: String,
         required: true,
-        default: null
+        default: {}
     }]
 });
 
