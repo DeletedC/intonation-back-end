@@ -26,7 +26,7 @@ StudentRouter.get('/', (req, res) => {
 StudentRouter.post('/', async (req, res) => {
     try {
         // Destructuring req.body
-        const {userName, firstName, lastName, age, bio, teacher} = req.body;
+        const {userName, firstName, lastName, age, bio, level, teacher} = req.body;
         
         // Creating new student
         const newStudent = await Student.create({
@@ -35,6 +35,7 @@ StudentRouter.post('/', async (req, res) => {
             lastName: lastName,
             age: age,
             bio: bio,
+            level: level,
             teacher: teacher
         }, (error, createdStudent) => {
             if (error){
@@ -58,7 +59,7 @@ StudentRouter.put('/:userName', async (req, res) => {
         const {userName} = req.params.userName;
 
         // Updating student
-        const editTeacher = await Student.findOneAndUpdate(userName, {
+        const editStudent = await Student.findOneAndUpdate(userName, {
             userName: userName,
             firstName: firstName,
             lastName: lastName,
