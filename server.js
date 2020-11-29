@@ -31,11 +31,27 @@ const corsOptions = {
 
 const db = mongoose.connection;
 const MONGODB_URI = process.env.MONGODB_URL || 'mongodb://localhost:27017/intonation';
+const liveOrLocal = () => {
+    if (MONGODB_URI == 'mongodb://localhost:27017/intonation') {
+        return 'DEV';
+    } else {
+        return 'PRODUCTION';
+    }
+}
 
 // On Connection
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,  useCreateIndex: true});
+try {
+    mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,  useCreateIndex: true})
+    .catch (error => {
+        console.log('ERROR: ' + error + '. \n'
+            +'CONNECTION TO MONGO FAILED.');
+    });
+
+} catch (error) {
+    console.log('ERROR: ' + error.message);
+}
 db.once('open', () => {
-console.log('connected to mongoose...');
+console.log(`Connected to ${liveOrLocal()} database.`);
 });
 
 // On Error
