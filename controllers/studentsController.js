@@ -2,6 +2,8 @@ const StudentRouter = require('express').Router();
 
 const Student = require('../models/studentSchema.js');
 
+const mongoose = require('mongoose');
+
 ///////////////////////////////////////
 // ROUTES
 ///////////////////////////////////////
@@ -9,16 +11,19 @@ const Student = require('../models/studentSchema.js');
 // INDEX ROUTE
 StudentRouter.get('/', (req, res) => {
     try {
-        Student.find((error, students) => {
+        if (mongoose.connection.readyState == 1) {
+            Student.find((error, students) => {
         
-            if (!error) {
-                res.json(students);
-            } else {
-                console.log(error);
-            }
-        });
+                if (!error) {
+                    res.json(students);
+                } else {
+                    console.log(error);
+                }
+            });
+        }
     } catch (error) {
         console.log(error);
+        res.status(500).json(error);
     }
 });
 

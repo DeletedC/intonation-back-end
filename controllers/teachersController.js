@@ -2,19 +2,29 @@ const TeacherRouter = require('express').Router();
 
 const Teacher = require('../models/teacherSchema.js');
 
+const mongoose = require('mongoose');
+
 ///////////////////////////////////////
 // ROUTES
 ///////////////////////////////////////
 
 // INDEX ROUTE
 TeacherRouter.get('/', (req, res) => {
-    Teacher.find((error, teachers) => {
-        if (!error) {
-            res.json(teachers);
-        } else {
-            console.log(error);
+    try {
+        // Check if the connection is active
+        if (mongoose.connection.readyState == 1) {
+            Teacher.find((error, teachers) => {
+                if (!error) {
+                    res.json(teachers);
+                } else {
+                    console.log(error);
+                }
+            });
         }
-    });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
 });
 
 
